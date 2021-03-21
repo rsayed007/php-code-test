@@ -8,5 +8,5 @@ session_start();
 
 session_destroy(); 
 $user->logout();
-header('Location: admin_login.php'); exit;
+header('Location: login.php'); exit;
         exit;	

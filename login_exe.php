@@ -2,9 +2,9 @@
     // echo 'login';
     
     error_reporting(0);
-    if(empty($_POST['email'])) { header('Location: admin_login.php'); exit; }
-    if(empty($_POST['password'])) { header('Location: admin_login.php'); exit; }
-    if(empty($_POST['token_hidden'])) { header('Location: admin_login.php'); exit; }
+    if(empty($_POST['email'])) { header('Location: login.php'); exit; }
+    if(empty($_POST['password'])) { header('Location: login.php'); exit; }
+    if(empty($_POST['token_hidden'])) { header('Location: login.php'); exit; }
 
     session_start();
     include_once './includes/db_connect.php';
@@ -13,7 +13,7 @@
    
     
     if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
-        header('Location: admin_login.php?login=invalid-email'); exit;
+        header('Location: login.php?login=invalid-email'); exit;
         exit;	
     }
     else{
@@ -24,14 +24,13 @@
     if (!empty($_POST['token_hidden'])) {
         if (hash_equals($_SESSION['z_token'], $_POST['token_hidden'])) {
     
-            $User_Login_Validation = $user->login($user_email, $login_password);
+            $User_Login_Validation = $user->Customer_Login($user_email, $login_password);
             
             // echo $User_Login_Validation;
             if($User_Login_Validation['result'] =='ok')
             {
-                // echo 'asdfasdfa';
-                header('Location: admin_home.php?'.$_SESSION["z_token"]);
-                exit();
+                header('Location: index.php');
+                exit;
             }else{
                 
                 $Alert_message="Login Failed. Please Try Again";
